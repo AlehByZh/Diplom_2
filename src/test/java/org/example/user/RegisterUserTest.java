@@ -1,10 +1,22 @@
+package org.example.user;
+
 import com.github.javafaker.Faker;
 import io.restassured.response.ValidatableResponse;
+import org.junit.After;
 import org.junit.Test;
 
 public class RegisterUserTest {
     private final UserClient client = new UserClient();
     private final UserChecks check = new UserChecks();
+    String userCreated;
+
+    @After
+    public void deleteUser() {
+        if (userCreated != null && !userCreated.isEmpty()){
+            ValidatableResponse deleteResponse = client.deleteUser(userCreated);
+            check.deleteSuccessFully(deleteResponse);
+        }
+    }
 
     @Test
     public void registerPositiveTest() {
@@ -15,9 +27,6 @@ public class RegisterUserTest {
                 .name(faker.name().firstName())
                 .build();
         ValidatableResponse createResponse = client.creatUser(user);
-        String created = check.createdSuccessfully(createResponse);
-
-        ValidatableResponse deleteResponse = client.deleteUser(created);
-        check.deleteSuccessFully(deleteResponse);
+        userCreated = check.createdSuccessfully(createResponse);
     }
 }

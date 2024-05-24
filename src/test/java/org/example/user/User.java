@@ -1,4 +1,5 @@
-import com.github.javafaker.Faker;
+package org.example.user;
+
 import lombok.*;
 
 @Data
@@ -10,9 +11,6 @@ public class User {
     private String name;
 
     public static User generic() {
-        return new User("porovozik@toster.by", "p@ssword1", "TosterBY");
-    }
-    public static User random() {
         return new User("porovozik@toster.by", "p@ssword1", "TosterBY");
     }
 }

@@ -1,3 +1,5 @@
+package org.example.user;
+
 import io.restassured.response.ValidatableResponse;
 
 import static java.net.HttpURLConnection.HTTP_ACCEPTED;

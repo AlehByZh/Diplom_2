@@ -1,5 +1,6 @@
 package org.example.user;
 
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 
 import static java.net.HttpURLConnection.HTTP_ACCEPTED;
@@ -8,6 +9,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class UserChecks {
+    @Step("Check delete is successfully")
     public void deleteSuccessFully(ValidatableResponse deleteResponse) {
         boolean deleted = deleteResponse
                 .assertThat()
@@ -17,6 +19,7 @@ public class UserChecks {
         assertTrue(deleted);
     }
 
+    @Step("Check create user is successfully")
     public String createdSuccessfully(ValidatableResponse createResponse) {
         String created = createResponse
                 .assertThat()

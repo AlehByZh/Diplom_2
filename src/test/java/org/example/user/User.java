@@ -3,7 +3,6 @@ package org.example.user;
 import lombok.*;
 
 @Data
-@AllArgsConstructor
 @Builder
 public class User {
     private String email;

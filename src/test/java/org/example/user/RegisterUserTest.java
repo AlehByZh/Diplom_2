@@ -1,6 +1,7 @@
 package org.example.user;
 
 import com.github.javafaker.Faker;
+import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
 import org.junit.Test;
@@ -18,6 +19,7 @@ public class RegisterUserTest {
         }
     }
 
+    @DisplayName("Creating new user positive path")
     @Test
     public void registerPositiveTest() {
         Faker faker = new Faker();

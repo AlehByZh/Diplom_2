@@ -10,6 +10,7 @@ public class RegisterUserTest {
     private final UserClient client = new UserClient();
     private final UserChecks check = new UserChecks();
     String userCreated;
+    private boolean userDontCreated;
 
     @After
     public void deleteUser() {
@@ -30,5 +31,49 @@ public class RegisterUserTest {
                 .build();
         ValidatableResponse createResponse = client.creatUser(user);
         userCreated = check.createdSuccessfully(createResponse);
+    }
+
+    @DisplayName("Creating existing user path")
+    @Test
+    public void registerExistingTest() {
+        var user = User.generic();
+        ValidatableResponse createResponse = client.creatUser(user);
+        userDontCreated = check.createdUnsuccessfully(createResponse);
+    }
+
+    @DisplayName("Creating new user without email path")
+    @Test
+    public void registerWithoutEmailTest() {
+        Faker faker = new Faker();
+        var user = User.builder()
+                .password(faker.internet().password())
+                .name(faker.name().firstName())
+                .build();
+        ValidatableResponse createResponse = client.creatUser(user);
+        userDontCreated = check.createdUnsuccessfully(createResponse);
+    }
+
+    @DisplayName("Creating new user without password path")
+    @Test
+    public void registerWithoutPasswordTest() {
+        Faker faker = new Faker();
+        var user = User.builder()
+                .email(faker.internet().emailAddress())
+                .name(faker.name().firstName())
+                .build();
+        ValidatableResponse createResponse = client.creatUser(user);
+        userDontCreated = check.createdUnsuccessfully(createResponse);
+    }
+
+    @DisplayName("Creating new user without name path")
+    @Test
+    public void registerWithoutNameTest() {
+        Faker faker = new Faker();
+        var user = User.builder()
+                .email(faker.internet().emailAddress())
+                .password(faker.internet().password())
+                .build();
+        ValidatableResponse createResponse = client.creatUser(user);
+        userDontCreated = check.createdUnsuccessfully(createResponse);
     }
 }

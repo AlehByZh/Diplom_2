@@ -4,6 +4,8 @@ import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 import org.example.Client;
 
+import java.util.Map;
+
 
 public class UserClient extends Client {
     private static final String AUTH_PATH = "/auth";
@@ -23,6 +25,23 @@ public class UserClient extends Client {
                 .body(user)
                 .when()
                 .post(AUTH_PATH + "/register")
+                .then().log().all();
+    }
+
+    @Step("Authorization user")
+    public ValidatableResponse authUser(UserCredentials creds) {
+        return spec()
+                .body(creds)
+                .when()
+                .post(AUTH_PATH + "/login")
+                .then().log().all();
+    }
+
+    public ValidatableResponse authUserWithWrongData(String email, String password) {
+        return spec()
+                .body(Map.of("email", email, "password", password))
+                .when()
+                .post(AUTH_PATH + "/login")
                 .then().log().all();
     }
 }

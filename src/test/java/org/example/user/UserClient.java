@@ -37,6 +37,7 @@ public class UserClient extends Client {
                 .then().log().all();
     }
 
+    @Step("Authorization with wrong data")
     public ValidatableResponse authUserWithWrongData(String email, String password) {
         return spec()
                 .body(Map.of("email", email, "password", password))

@@ -12,6 +12,7 @@ public class AuthorizationUserTest {
     String userAuthorization;
     private boolean userDontAuth;
 
+    @DisplayName("Delete user")
     @After
     public void deleteUser() {
         if (userAuthorization != null && !userAuthorization.isEmpty()){

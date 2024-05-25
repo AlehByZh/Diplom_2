@@ -1,6 +1,7 @@
 package org.example.user;
 
 import com.github.javafaker.Faker;
+import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
@@ -12,6 +13,7 @@ public class RegisterUserTest {
     String userCreated;
     private boolean userDontCreated;
 
+    @Step("Delete user")
     @After
     public void deleteUser() {
         if (userCreated != null && !userCreated.isEmpty()){

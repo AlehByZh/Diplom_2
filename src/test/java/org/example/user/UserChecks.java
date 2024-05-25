@@ -50,6 +50,7 @@ public class UserChecks {
         return authed;
     }
 
+    @Step("Check authorization is unsuccessfully")
     public boolean authUnsuccessfully(ValidatableResponse createResponse) {
         boolean unauth = createResponse
                 .assertThat()

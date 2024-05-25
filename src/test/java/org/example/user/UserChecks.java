@@ -60,4 +60,37 @@ public class UserChecks {
         assertFalse(unauth);
         return unauth;
     }
+
+    @Step("Check is name updated")
+    public String updatedNameSuccessfully(ValidatableResponse updateResponse, String newName) {
+        String newUserName = updateResponse
+                .assertThat()
+                .statusCode(HTTP_OK)
+                .extract()
+                .path("user.name");
+        assertEquals(newName, newUserName);
+        return newUserName;
+    }
+
+    @Step("Check is email updated")
+    public String updatedEmailSuccessfully(ValidatableResponse updateResponse, String newEmail) {
+        String newUserEmail = updateResponse
+                .assertThat()
+                .statusCode(HTTP_OK)
+                .extract()
+                .path("user.email");
+        assertEquals(newEmail, newUserEmail);
+        return newUserEmail;
+    }
+
+    @Step("Check data is don't updated")
+    public boolean updatedDataUnsuccessfully(ValidatableResponse updateResponse) {
+        boolean unupdated = updateResponse
+                .assertThat()
+                .statusCode(HTTP_UNAUTHORIZED)
+                .extract()
+                .path("success");
+        assertFalse(unupdated);
+        return unupdated;
+    }
 }

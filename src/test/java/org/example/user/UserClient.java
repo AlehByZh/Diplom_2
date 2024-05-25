@@ -45,4 +45,33 @@ public class UserClient extends Client {
                 .post(AUTH_PATH + "/login")
                 .then().log().all();
     }
+
+    @Step("Update user name")
+    public ValidatableResponse updateNameData(String userCreated, String newName) {
+        return spec()
+                .header("authorization", userCreated)
+                .body(Map.of("name", newName))
+                .when()
+                .patch(AUTH_PATH + "/user")
+                .then().log().all();
+    }
+
+    @Step("Update user email")
+    public ValidatableResponse updateEmailData(String userCreated, String newEmail) {
+        return spec()
+                .header("authorization", userCreated)
+                .body(Map.of("email", newEmail))
+                .when()
+                .patch(AUTH_PATH + "/user")
+                .then().log().all();
+    }
+
+    @Step("Update user data without authorization")
+    public ValidatableResponse updateUnsuccessfullyData(String newEmail) {
+        return spec()
+                .body(Map.of("email", newEmail))
+                .when()
+                .patch(AUTH_PATH + "/user")
+                .then().log().all();
+    }
 }

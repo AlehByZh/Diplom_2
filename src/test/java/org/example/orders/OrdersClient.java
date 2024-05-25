@@ -37,4 +37,21 @@ public class OrdersClient extends Client {
                 .post("/orders")
                 .then().log().all();
     }
+
+    @Step("Get user order list")
+    public ValidatableResponse getOrder(String userCreated) {
+        return spec()
+                .header("authorization", userCreated)
+                .when()
+                .get("/orders")
+                .then().log().all();
+    }
+
+    @Step("Get order list without authorization")
+    public ValidatableResponse getOrderWithoutAuth() {
+        return spec()
+                .when()
+                .get("/orders")
+                .then().log().all();
+    }
 }

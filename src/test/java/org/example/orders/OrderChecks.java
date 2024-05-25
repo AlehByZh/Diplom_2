@@ -40,4 +40,26 @@ public class OrderChecks {
         assertTrue(eternalError.contains("<pre>Internal Server Error</pre>"));
         return eternalError;
     }
+
+    @Step("check user number of orders")
+    public int userOrders(ValidatableResponse getOrderResponse) {
+        int totalOrders = getOrderResponse
+                .assertThat()
+                .statusCode(HTTP_OK)
+                .extract()
+                .path("totalToday");
+        assertEquals(2,totalOrders);
+        return totalOrders;
+    }
+
+    @Step("Check is order list is no show")
+    public boolean dontShoworders(ValidatableResponse getOrderResponse) {
+        boolean noOrders = getOrderResponse
+                .assertThat()
+                .statusCode(HTTP_UNAUTHORIZED)
+                .extract()
+                .path("success");
+        assertFalse(noOrders);
+        return noOrders;
+    }
 }

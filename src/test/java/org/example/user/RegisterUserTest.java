@@ -13,8 +13,8 @@ public class RegisterUserTest {
     String userCreated;
     private boolean userDontCreated;
 
-    @Step("Delete user")
     @After
+    @Step("Delete user")
     public void deleteUser() {
         if (userCreated != null && !userCreated.isEmpty()){
             ValidatableResponse deleteResponse = client.deleteUser(userCreated);
@@ -22,8 +22,8 @@ public class RegisterUserTest {
         }
     }
 
-    @DisplayName("Creating new user positive path")
     @Test
+    @DisplayName("Creating new user positive path")
     public void registerPositiveTest() {
         Faker faker = new Faker();
         var user = User.builder()
@@ -35,16 +35,16 @@ public class RegisterUserTest {
         userCreated = check.createdSuccessfully(createResponse);
     }
 
-    @DisplayName("Creating existing user path")
     @Test
+    @DisplayName("Creating existing user path")
     public void registerExistingTest() {
         var user = User.generic();
         ValidatableResponse createResponse = client.creatUser(user);
         userDontCreated = check.createdUnsuccessfully(createResponse);
     }
 
-    @DisplayName("Creating new user without email path")
     @Test
+    @DisplayName("Creating new user without email path")
     public void registerWithoutEmailTest() {
         Faker faker = new Faker();
         var user = User.builder()
@@ -55,8 +55,8 @@ public class RegisterUserTest {
         userDontCreated = check.createdUnsuccessfully(createResponse);
     }
 
-    @DisplayName("Creating new user without password path")
     @Test
+    @DisplayName("Creating new user without password path")
     public void registerWithoutPasswordTest() {
         Faker faker = new Faker();
         var user = User.builder()
@@ -67,8 +67,8 @@ public class RegisterUserTest {
         userDontCreated = check.createdUnsuccessfully(createResponse);
     }
 
-    @DisplayName("Creating new user without name path")
     @Test
+    @DisplayName("Creating new user without name path")
     public void registerWithoutNameTest() {
         Faker faker = new Faker();
         var user = User.builder()

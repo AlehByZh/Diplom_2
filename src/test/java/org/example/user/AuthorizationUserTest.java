@@ -1,6 +1,7 @@
 package org.example.user;
 
 import com.github.javafaker.Faker;
+import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.ValidatableResponse;
 import org.junit.After;
@@ -12,8 +13,8 @@ public class AuthorizationUserTest {
     String userAuthorization;
     private boolean userDontAuth;
 
-    @DisplayName("Delete user")
     @After
+    @Step("Delete user")
     public void deleteUser() {
         if (userAuthorization != null && !userAuthorization.isEmpty()){
             ValidatableResponse deleteResponse = client.deleteUser(userAuthorization);
@@ -21,8 +22,8 @@ public class AuthorizationUserTest {
         }
     }
 
-    @DisplayName("User authorization positive path")
     @Test
+    @DisplayName("User authorization positive path")
     public void userAuthorizationPositivePath() {
         Faker faker = new Faker();
         var user = User.builder()
@@ -38,8 +39,8 @@ public class AuthorizationUserTest {
         userAuthorization = check.authSuccessfully(authResponse);
     }
 
-    @DisplayName("User authorization path with non-existent data")
     @Test
+    @DisplayName("User authorization path with non-existent data")
     public void userAuthorizationNonExistentPath() {
         Faker faker = new Faker();
         var user = User.builder()
@@ -51,8 +52,8 @@ public class AuthorizationUserTest {
         userDontAuth = check.authUnsuccessfully(authResponse);
     }
 
-    @DisplayName("User authorization path with wrong password")
     @Test
+    @DisplayName("User authorization path with wrong password")
     public void userAuthorizationWrongEmail() {
         Faker faker = new Faker();
         var user = User.builder()
@@ -66,8 +67,8 @@ public class AuthorizationUserTest {
         userDontAuth = check.authUnsuccessfully(authResponse);
     }
 
-    @DisplayName("User authorization path with wrong email")
     @Test
+    @DisplayName("User authorization path with wrong email")
     public void userAuthorizationWrongPassword() {
         Faker faker = new Faker();
         var user = User.builder()

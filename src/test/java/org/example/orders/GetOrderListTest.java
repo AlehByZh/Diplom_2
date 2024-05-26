@@ -22,8 +22,9 @@ public class GetOrderListTest {
     List<String> ingredients1 = Arrays.asList("61c0c5a71d1f82001bdaaa6d","61c0c5a71d1f82001bdaaa6f");
     List<String> ingredients2 = Arrays.asList("61c0c5a71d1f82001bdaaa6c", "61c0c5a71d1f82001bdaaa75");
 
-    @Step("Delete user")
+
     @After
+    @Step("Delete user")
     public void deleteUser() {
         if (userCreated != null && !userCreated.isEmpty()){
             ValidatableResponse deleteResponse = client.deleteUser(userCreated);
@@ -31,8 +32,8 @@ public class GetOrderListTest {
         }
     }
 
-    @DisplayName("Get user order list")
     @Test
+    @DisplayName("Get user order list")
     public void getUserOrderList() {
         Faker faker = new Faker();
         var user = User.builder()
@@ -57,8 +58,8 @@ public class GetOrderListTest {
         orderCheck.userOrders(getOrderResponse);
     }
 
-    @DisplayName("Get order list without authorization")
     @Test
+    @DisplayName("Get order list without authorization")
     public void getOrderListWithoutAuthorization() {
         ValidatableResponse getOrderResponse = order.getOrderWithoutAuth();
         orderCheck.dontShoworders(getOrderResponse);

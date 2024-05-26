@@ -32,7 +32,7 @@ public class OrdersClient extends Client {
     public ValidatableResponse creatOrderWithoutIngr(String userCreated) {
         return spec()
                 .header("authorization", userCreated)
-                .body(Map.of("ingredients", null))
+                .body(Map.of("ingredients",""))
                 .when()
                 .post("/orders")
                 .then().log().all();

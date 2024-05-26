@@ -3,8 +3,6 @@ package org.example.orders;
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 
-import java.util.List;
-
 import static java.net.HttpURLConnection.*;
 import static org.junit.Assert.*;
 

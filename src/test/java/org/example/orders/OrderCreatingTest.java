@@ -23,8 +23,8 @@ public class OrderCreatingTest {
     List<String> wrongIngredients = Arrays.asList("61c0c5a71d1f82001bdaaa6", "61c0c5a71d1f82001bdaaa5");
     private boolean orderCreated;
 
-    @Step("Delete user")
     @After
+    @Step("Delete user")
     public void deleteUser() {
         if (userCreated != null && !userCreated.isEmpty()){
             ValidatableResponse deleteResponse = client.deleteUser(userCreated);
@@ -32,8 +32,8 @@ public class OrderCreatingTest {
         }
     }
 
-    @DisplayName("Creating order positive path")
     @Test
+    @DisplayName("Creating order positive path")
     public void createOrderPositive() {
         Faker faker = new Faker();
         var user = User.builder()
@@ -48,8 +48,8 @@ public class OrderCreatingTest {
         orderCreated = orderCheck.orderCreated(creatOrderResponse);
     }
 
-    @DisplayName("Creating order without ingredients")
     @Test
+    @DisplayName("Creating order without ingredients")
     public void createOrderWithoutIngredients() {
         Faker faker = new Faker();
         var user = User.builder()
@@ -63,8 +63,9 @@ public class OrderCreatingTest {
         ValidatableResponse creatOrderResponse = order.creatOrderWithoutIngr(userCreated);
         orderCheck.orderDontCreated(creatOrderResponse);
     }
-    @DisplayName("Creating order with wrong hash ingredient")
+
     @Test
+    @DisplayName("Creating order with wrong hash ingredient")
     public void createOrderWithWrongHash() {
         Faker faker = new Faker();
         var user = User.builder()
@@ -79,8 +80,8 @@ public class OrderCreatingTest {
         orderCheck.eternalError(creatOrderResponse);
     }
 
-    @DisplayName("Creating order without authorization")
     @Test
+    @DisplayName("Creating order without authorization")
     public void createOrderWithoutAuthorization() {
         ValidatableResponse creatOrderResponse = order.creatOrderWithoutAuth(ingredients);
         orderCheck.orderCreated(creatOrderResponse);

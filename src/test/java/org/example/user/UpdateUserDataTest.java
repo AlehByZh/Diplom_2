@@ -13,8 +13,8 @@ public class UpdateUserDataTest {
     String userCreated;
     String userUpdatedData;
 
-    @Step("Delete user")
     @After
+    @Step("Delete user")
     public void deleteUser() {
         if (userCreated != null && !userCreated.isEmpty()){
             ValidatableResponse deleteResponse = client.deleteUser(userCreated);
@@ -22,8 +22,8 @@ public class UpdateUserDataTest {
         }
     }
 
-    @DisplayName("Update user name test")
     @Test
+    @DisplayName("Update user name test")
     public void updateUserName() {
         Faker faker = new Faker();
         String newName = faker.name().firstName();
@@ -39,8 +39,8 @@ public class UpdateUserDataTest {
         userUpdatedData = check.updatedNameSuccessfully(updateResponse, newName);
     }
 
-    @DisplayName("Update user email test")
     @Test
+    @DisplayName("Update user email test")
     public void updateUserEmail() {
         Faker faker = new Faker();
         String newEmail = faker.internet().emailAddress();
@@ -56,8 +56,8 @@ public class UpdateUserDataTest {
         userUpdatedData = check.updatedEmailSuccessfully(updateResponse, newEmail);
     }
 
-    @DisplayName("Update user data without authorization")
     @Test
+    @DisplayName("Update user data without authorization")
     public void updateUserDataWithoutAuthorization() {
         Faker faker = new Faker();
         String newEmail = faker.internet().emailAddress();

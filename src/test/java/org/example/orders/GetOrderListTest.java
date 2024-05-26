@@ -48,6 +48,11 @@ public class GetOrderListTest {
         ValidatableResponse creatOrderResponse2 = order.creatOrder(userCreated, ingredients2);
         orderCheck.orderCreated(creatOrderResponse2);
 
+        /*
+        Данная проверка упадет, так как считаю что тут неверно отрабатывает Total
+        считаю что в нашем тесте для нового пользователя Total
+        должен быть равен количеству созданных в тесте заказов
+         */
         ValidatableResponse getOrderResponse = order.getOrder(userCreated);
         orderCheck.userOrders(getOrderResponse);
     }

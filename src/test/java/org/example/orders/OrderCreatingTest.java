@@ -82,16 +82,7 @@ public class OrderCreatingTest {
     @DisplayName("Creating order without authorization")
     @Test
     public void createOrderWithoutAuthorization() {
-        Faker faker = new Faker();
-        var user = User.builder()
-                .email(faker.internet().emailAddress())
-                .password(faker.internet().password())
-                .name(faker.name().firstName())
-                .build();
-        ValidatableResponse creatResponse = client.creatUser(user);
-        userCreated = check.createdSuccessfully(creatResponse);
-
         ValidatableResponse creatOrderResponse = order.creatOrderWithoutAuth(ingredients);
-        //orderCreated = orderCheck.orderDontCreated(creatOrderResponse);
+        orderCheck.orderCreated(creatOrderResponse);
     }
 }

@@ -3,6 +3,8 @@ package org.example.orders;
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 
+import java.util.List;
+
 import static java.net.HttpURLConnection.*;
 import static org.junit.Assert.*;
 
@@ -47,7 +49,7 @@ public class OrderChecks {
                 .assertThat()
                 .statusCode(HTTP_OK)
                 .extract()
-                .path("totalToday");
+                .path("total");
         assertEquals(2,totalOrders);
         return totalOrders;
     }

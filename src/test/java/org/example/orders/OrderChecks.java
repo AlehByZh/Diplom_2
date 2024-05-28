@@ -3,6 +3,8 @@ package org.example.orders;
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 
+import java.util.List;
+
 import static java.net.HttpURLConnection.*;
 import static org.junit.Assert.*;
 
@@ -61,5 +63,16 @@ public class OrderChecks {
                 .path("success");
         assertFalse(noOrders);
         return noOrders;
+    }
+
+    @Step("Check is ingredient list in not empty")
+    public List<String> getAllIngredients(ValidatableResponse getIngredientsResponse) {
+        List<String> allIngredients = getIngredientsResponse
+                .assertThat()
+                .statusCode(HTTP_OK)
+                .extract()
+                .path("data._id");
+        assertFalse(allIngredients.isEmpty());
+        return allIngredients;
     }
 }

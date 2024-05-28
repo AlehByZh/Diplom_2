@@ -19,8 +19,7 @@ public class GetOrderListTest {
     private final OrderChecks orderCheck = new OrderChecks();
     private final OrdersClient order = new OrdersClient();
     String userCreated;
-    List<String> ingredients1 = Arrays.asList("61c0c5a71d1f82001bdaaa6d","61c0c5a71d1f82001bdaaa6f");
-    List<String> ingredients2 = Arrays.asList("61c0c5a71d1f82001bdaaa6c", "61c0c5a71d1f82001bdaaa75");
+    List<String> ingredients;
 
 
     @After
@@ -44,9 +43,13 @@ public class GetOrderListTest {
         ValidatableResponse creatResponse = client.creatUser(user);
         userCreated = check.createdSuccessfully(creatResponse);
 
-        ValidatableResponse creatOrderResponse = order.creatOrder(userCreated, ingredients1);
+        ValidatableResponse getListIngredients = order.getListOfIngredients();
+        List<String> allIngredients = orderCheck.getAllIngredients(getListIngredients);
+        ingredients = allIngredients.size() > 2 ? allIngredients.subList(0, 2) : allIngredients;
+
+        ValidatableResponse creatOrderResponse = order.creatOrder(userCreated, ingredients);
         orderCheck.orderCreated(creatOrderResponse);
-        ValidatableResponse creatOrderResponse2 = order.creatOrder(userCreated, ingredients2);
+        ValidatableResponse creatOrderResponse2 = order.creatOrder(userCreated, ingredients);
         orderCheck.orderCreated(creatOrderResponse2);
 
         /*

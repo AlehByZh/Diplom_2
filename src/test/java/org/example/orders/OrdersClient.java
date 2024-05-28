@@ -54,4 +54,12 @@ public class OrdersClient extends Client {
                 .get("/orders")
                 .then().log().all();
     }
+
+    @Step("Get list of ingredients")
+    public ValidatableResponse getListOfIngredients() {
+        return spec()
+                .when()
+                .get("/ingredients")
+                .then().log().all();
+    }
 }

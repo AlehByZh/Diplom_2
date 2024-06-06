@@ -11,7 +11,6 @@ public class AuthorizationUserTest {
     private final UserClient client = new UserClient();
     private final UserChecks check = new UserChecks();
     String userAuthorization;
-    private boolean userDontAuth;
 
     @After
     @Step("Delete user")
@@ -49,7 +48,7 @@ public class AuthorizationUserTest {
                 .build();
         UserCredentials creds = UserCredentials.from(user);
         ValidatableResponse authResponse = client.authUser(creds);
-        userDontAuth = check.authUnsuccessfully(authResponse);
+        check.authUnsuccessfully(authResponse);
     }
 
     @Test
@@ -64,7 +63,7 @@ public class AuthorizationUserTest {
         ValidatableResponse createResponse = client.creatUser(user);
         userAuthorization = check.createdSuccessfully(createResponse);
         ValidatableResponse authResponse = client.authUserWithWrongData(user.getEmail(),"1234");
-        userDontAuth = check.authUnsuccessfully(authResponse);
+        check.authUnsuccessfully(authResponse);
     }
 
     @Test
@@ -79,6 +78,6 @@ public class AuthorizationUserTest {
         ValidatableResponse createResponse = client.creatUser(user);
         userAuthorization = check.createdSuccessfully(createResponse);
         ValidatableResponse authResponse = client.authUserWithWrongData("qucksilver@maximoff.by", user.getPassword());
-        userDontAuth = check.authUnsuccessfully(authResponse);
+        check.authUnsuccessfully(authResponse);
     }
 }

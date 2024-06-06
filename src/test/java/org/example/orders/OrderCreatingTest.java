@@ -19,9 +19,8 @@ public class OrderCreatingTest {
     private final OrderChecks orderCheck = new OrderChecks();
     private final OrdersClient order = new OrdersClient();
     String userCreated;
-    List<String> ingredients = Arrays.asList("61c0c5a71d1f82001bdaaa6d","61c0c5a71d1f82001bdaaa6f");
+    List<String> ingredients;
     List<String> wrongIngredients = Arrays.asList("61c0c5a71d1f82001bdaaa6", "61c0c5a71d1f82001bdaaa5");
-    private boolean orderCreated;
 
     @After
     @Step("Delete user")
@@ -44,8 +43,12 @@ public class OrderCreatingTest {
         ValidatableResponse creatResponse = client.creatUser(user);
         userCreated = check.createdSuccessfully(creatResponse);
 
+        ValidatableResponse getListIngredients = order.getListOfIngredients();
+        List<String> allIngredients = orderCheck.getAllIngredients(getListIngredients);
+        ingredients = allIngredients.size() > 2 ? allIngredients.subList(0, 2) : allIngredients;
+
         ValidatableResponse creatOrderResponse = order.creatOrder(userCreated, ingredients);
-        orderCreated = orderCheck.orderCreated(creatOrderResponse);
+        orderCheck.orderCreated(creatOrderResponse);
     }
 
     @Test
@@ -83,6 +86,10 @@ public class OrderCreatingTest {
     @Test
     @DisplayName("Creating order without authorization")
     public void createOrderWithoutAuthorization() {
+        ValidatableResponse getListIngredients = order.getListOfIngredients();
+        List<String> allIngredients = orderCheck.getAllIngredients(getListIngredients);
+        ingredients = allIngredients.size() > 2 ? allIngredients.subList(0, 2) : allIngredients;
+
         ValidatableResponse creatOrderResponse = order.creatOrderWithoutAuth(ingredients);
         orderCheck.orderCreated(creatOrderResponse);
     }

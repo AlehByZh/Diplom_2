@@ -9,8 +9,6 @@ import org.example.user.UserChecks;
 import org.example.user.UserClient;
 import org.junit.After;
 import org.junit.Test;
-
-import java.util.Arrays;
 import java.util.List;
 
 public class GetOrderListTest {

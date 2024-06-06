@@ -11,7 +11,6 @@ public class RegisterUserTest {
     private final UserClient client = new UserClient();
     private final UserChecks check = new UserChecks();
     String userCreated;
-    private boolean userDontCreated;
 
     @After
     @Step("Delete user")
@@ -40,7 +39,7 @@ public class RegisterUserTest {
     public void registerExistingTest() {
         var user = User.generic();
         ValidatableResponse createResponse = client.creatUser(user);
-        userDontCreated = check.createdUnsuccessfully(createResponse);
+        check.createdUnsuccessfully(createResponse);
     }
 
     @Test
@@ -52,7 +51,7 @@ public class RegisterUserTest {
                 .name(faker.name().firstName())
                 .build();
         ValidatableResponse createResponse = client.creatUser(user);
-        userDontCreated = check.createdUnsuccessfully(createResponse);
+        check.createdUnsuccessfully(createResponse);
     }
 
     @Test
@@ -64,7 +63,7 @@ public class RegisterUserTest {
                 .name(faker.name().firstName())
                 .build();
         ValidatableResponse createResponse = client.creatUser(user);
-        userDontCreated = check.createdUnsuccessfully(createResponse);
+        check.createdUnsuccessfully(createResponse);
     }
 
     @Test
@@ -76,6 +75,6 @@ public class RegisterUserTest {
                 .password(faker.internet().password())
                 .build();
         ValidatableResponse createResponse = client.creatUser(user);
-        userDontCreated = check.createdUnsuccessfully(createResponse);
+        check.createdUnsuccessfully(createResponse);
     }
 }

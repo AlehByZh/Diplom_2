@@ -20,8 +20,8 @@ public class GetOrderListTest {
     List<String> ingredients;
 
 
+    @DisplayName("Delete user")
     @After
-    @Step("Delete user")
     public void deleteUser() {
         if (userCreated != null && !userCreated.isEmpty()){
             ValidatableResponse deleteResponse = client.deleteUser(userCreated);

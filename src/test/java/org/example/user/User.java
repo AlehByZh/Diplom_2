@@ -13,4 +13,3 @@ public class User {
         return new User("porovozik@toster.by", "p@ssword1", "TosterBY");
     }
 }
-
